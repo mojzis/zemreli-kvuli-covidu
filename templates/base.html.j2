@@ -14,9 +14,9 @@
     <meta property="og:title" content="{% block ogtitle %}{% endblock %}" />
     <meta property="og:description" content="Kolik doopravdy zemřelo lidí kvůli covidu." />
     <meta name="Description" CONTENT="Kolik doopravdy zemřelo lidí kvůli covidu.">
-    <meta property="og:image" content="{% block ogimage %}{% endblock %}" />
+    <meta property="og:image" content="https://zemreli-covid.netlify.app/{% block ogimage %}{% endblock %}" />
 
-    {#    <script async defer data-domain="data-o-klimatu.netlify.app" src="https://plausible.io/js/plausible.js"></script>#}
+    <script async defer data-domain="zemreli-covid.netlify.app" src="https://plausible.io/js/plausible.js"></script>
 {#    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">#}
 {#    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">#}
 {#    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">#}
@@ -29,4 +29,5 @@
 {% block bodyscript %}{% endblock %}
 <nav>{% block uppernav %}{% endblock %}</nav>
 <div>{% block content %}{% endblock %}</div>
+<p>Vytvořil <a href="">@mojzis</a></p>
 </body>

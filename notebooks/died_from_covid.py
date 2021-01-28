@@ -20,22 +20,8 @@ import plotly.io as pio
 
 # %% [markdown]
 # # Covid zabíjí
-# V poslední době se někteří představitelé státu snaží nepochopitelně zlehčovat dopady pandemie na životy lidí v České Republice.  
-# Zřejmě v obavě o "image", snaze vyjít vstříc průmyslu a křiklounům kteří nechtějí nosit roušky, hraje vláda **odporný vabank** s lidskými životy, prohrává a ještě o tom lže.
-#
-# Je nedůstojné, že se místo **citlivého připomenutí** těch kteří padli za oběť pandemii, vede ve veřejném prostoru podivná debata snažící se zbytečně rozlišit "s covidem" a "na covid".
-#
-# Umřelo mnohem víc lidí než by umřelo normálně, přímým viníkem je vláda a teď se nešťastně snaží to zamluvit. **Umřelo víc lidí** než kolik říká covidová statistika.
-#
-# Místo jalového hledání jestli náhodou v těch vykázaných "s covidem" není 1 navíc, měla by vláda zjistit, **proč jich tam tisíce chybí.**
-#
-# ## Data
-# Grafy níže vychází z těchto zdrojů:
-# - MZČR: [COVID-19: Přehled úmrtí dle hlášení krajských hygienických stanic](https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19) - aktualizováno jednou týdně v neděli
-# - Statistický úřad: [Zemřelí podle týdnů a věkových skupin v České republice](https://www.czso.cz/csu/czso/zemreli-podle-tydnu-a-vekovych-skupin-v-ceske-republice) - aktualizováno týdně v úterý, vždy s 5 týdenním zpožděním
 #
 #
-# Více k problematice počítání obětí pandemie si můžete přečíst ve skvělém článku od Petra Koubského - [Je to daleko horší, než Blatný tvrdí. Česko nevykazuje příliš mnoho úmrtí na covid, ale příliš málo](https://denikn.cz/546629/je-to-daleko-horsi-nez-blatny-tvrdi-cesko-nevykazuje-prilis-mnoho-umrti-na-covid-ale-prilis-malo/?ref=tema)
 
 # %%
 # a necessary hack for my current jlab 3.0 setup, should go away soon :)
@@ -138,6 +124,16 @@ figall
 
 # %% [markdown]
 # Od 38. týdne - 14-20. 9. 2020 se začal počet zesnulých prudce odlišovat od přechozích let, největší rozdíl nastal v týdnech 44 a 45 ( mezi 26.10. a 8.11.) - v těchto týdnech umíralo dvakrát tolik lidí než bylo obvyklé v předchozích letech.
+#
+# V poslední době se někteří představitelé státu snaží nepochopitelně zlehčovat dopady pandemie na životy lidí v České Republice.  
+# Zřejmě v obavě o "image", snaze vyjít vstříc průmyslu a křiklounům kteří nechtějí nosit roušky, hraje vláda **odporný vabank** s lidskými životy, prohrává a ještě o tom lže.
+#
+# Je nedůstojné, že se místo **citlivého připomenutí** těch kteří padli za oběť pandemii, vede ve veřejném prostoru podivná debata snažící se zbytečně rozlišit "s covidem" a "na covid".
+#
+# Umřelo mnohem víc lidí než by umřelo normálně, přímým viníkem je vláda a teď se nešťastně snaží to zamluvit. **Umřelo víc lidí** než kolik říká covidová statistika.
+#
+# Místo jalového hledání jestli náhodou v těch vykázaných "s covidem" není 1 navíc, měla by vláda zjistit, **proč jich tam tisíce chybí.**
+#
 
 # %% [markdown]
 # ## Nadúmrtí vs úmrtí vykázaná s covidem podle věkových skupin
@@ -152,10 +148,30 @@ figsp = px.line(
     facet_col='vek_txt',
     template='plotly_white',
 )
+figsp.update_traces(
+    patch={
+        'line': {'width': 3, 'color': 'red'},
+        'mode': 'lines+markers',
+        'marker': {'size': 5, 'color': 'navy'}
+    },
+    selector=lambda x: x['name'] == '2020')
+
 figsp.update_layout(
         legend_title_text='Rok',
         hovermode='closest',
 )
+figsp.for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
+figsp.update_traces(
+    patch={
+        'line': {'width': 7, 'color': 'crimson', 'dash':'solid'},
+        'opacity': 0.3
+    },
+    selector={'name':'prumer'}
+)
+
+figsp.update_traces(patch={'name': 'Průměr 15 - 19'}, selector={'name':'prumer'})
+figsp.update_traces(patch={'name': 'Průměr + covid'}, selector={'name':'prumer + covid'})
+
 figsp.update_yaxes(patch={'title': {'text': 'Počet zesnulých'}}, col=1)
 figsp.update_xaxes(patch={'title': {'text': 'Týden'}})
 figsp
@@ -195,3 +211,12 @@ with open('died_from_covid/ogimg.png','bw') as ogim:
         height=700,
         engine='kaleido'))
 
+
+# %% [markdown]
+# ## Data
+# Grafy vychází z těchto zdrojů:
+# - MZČR: [COVID-19: Přehled úmrtí dle hlášení krajských hygienických stanic](https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19) - aktualizováno jednou týdně v neděli
+# - Statistický úřad: [Zemřelí podle týdnů a věkových skupin v České republice](https://www.czso.cz/csu/czso/zemreli-podle-tydnu-a-vekovych-skupin-v-ceske-republice) - aktualizováno týdně v úterý, vždy s 5 týdenním zpožděním
+#
+#
+# Více k problematice počítání obětí pandemie si můžete přečíst ve skvělém článku od Petra Koubského - [Je to daleko horší, než Blatný tvrdí. Česko nevykazuje příliš mnoho úmrtí na covid, ale příliš málo](https://denikn.cz/546629/je-to-daleko-horsi-nez-blatny-tvrdi-cesko-nevykazuje-prilis-mnoho-umrti-na-covid-ale-prilis-malo/?ref=tema)

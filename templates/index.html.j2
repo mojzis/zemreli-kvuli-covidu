@@ -1,5 +1,7 @@
 {% extends "base.html.j2" %}
 {% block title %}Zemřeli kvůli covidu{% endblock %}
+{% block ogtitle %}Zemřeli kvůli covidu{% endblock %}
+{% block ogimage %}img/covid-zabiji.png{% endblock %}
 {% block customhead %}
 <style>
 .artlink {
@@ -26,7 +28,7 @@
 {% endblock %}
 {% block content %}
     <h1>Zemřeli kvůli covidu</h1>
-    <p>Několik grafů o tom jak při této pandemii zbztečně umírají lidé.</p>
+    <p>Několik grafů o tom jak při této pandemii zbytečně umírají lidé.</p>
     {% for ntb in notebooks %}
     <div class="article">
         <a class="artlink" href="{{ ntb.slug }}.html">

@@ -1,0 +1,40 @@
+{% extends "base.html.j2" %}
+{% block title %}Zemřeli kvůli covidu{% endblock %}
+{% block customhead %}
+<style>
+.artlink {
+    text-decoration: none;
+    color: black;
+    display: block;
+}
+.artlink h3 {
+    margin-top: 0;
+    text-decoration: underline;
+    margin-bottom: 0.2rem;
+}
+.alpic {
+    padding-right: 1rem;
+    {#text-align: center;#}
+    min-width: 100px;
+}
+.article {
+    {#display: inline-flex;#}
+    padding-bottom: 1.5rem;
+}
+
+</style>
+{% endblock %}
+{% block content %}
+    <h1>Zemřeli kvůli covidu</h1>
+    <p>Několik grafů o tom jak při této pandemii zbztečně umírají lidé.</p>
+    {% for ntb in notebooks %}
+    <div class="article">
+        <a class="artlink" href="{{ ntb.slug }}.html">
+            <h3>{{ ntb.title }}</h3>
+        </a>
+        <a class="artlink alpic" href="{{ ntb.slug }}.html">
+            <img class="thumb" src="img/thumb/{{ ntb.slug }}.png">
+        </a>
+    </div>
+    {% endfor %}
+{% endblock %}

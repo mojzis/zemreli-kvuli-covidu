@@ -1,0 +1,59 @@
+{% extends "base.html.j2" %}
+{% block title %}{{ piece.title }}{% endblock %}
+{% block ogtitle %}{{ piece.title }}{% endblock %}
+{% block ogimage %}img/{{ piece.slug }}.png{% endblock %}
+{% block customhead %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js" integrity="sha512-GQ3aaCTQty4Iq5QrAtKpzomUSNz3sJpWOUxxJoZW4PYAKsckw49SMVaAykMh4SopX87eVGrxf9yOat27echN1Q==" crossorigin="anonymous"></script>
+    <style>
+        .code_cell .input, .output_prompt, .anchor-link {
+            display: none;
+        }
+        table {
+            color: #333;
+            background: white;
+            border: 1px solid grey;
+            {#font-size: 12pt;#}
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        table thead th,
+        table tfoot th {
+            color: #777;
+            background: rgba(0, 0, 0, .1);
+        }
+
+        table caption {
+            padding: .5em;
+        }
+
+        table th,
+        table td {
+            padding: .5em;
+            border: 1px solid lightgrey;
+        }
+
+        tbody tr:nth-of-type(even) {
+            background: rgba(0, 0, 0, .05);
+        }
+
+        table tbody td {
+            padding-left: 1rem;
+            text-align: right;
+        }
+    </style>
+{% endblock %}
+{% block bodyscript %}
+<script >
+    requirejs.config({
+        paths: {
+            'plotly':['https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.58.2/plotly.min','plotly']
+        }
+    });
+</script>
+{% endblock %}
+{% block content %}
+    {{ piece.body }}
+    <p>Notebook: <a href="https://github.com/mojzis/zemreli-kvuli-covidu/blob/main/notebooks/{{ piece.filename }}.py">{{ piece.filename }}</a> </p>
+{% endblock %}
